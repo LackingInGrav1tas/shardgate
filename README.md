@@ -1,7 +1,7 @@
 # shardgate
 C++ game w/ nethack inspired ascii animation.
 
-![image](https://user-images.githubusercontent.com/42680395/93270534-59ef8c80-f77f-11ea-9e00-61750bc1de06.png)
+![image](https://user-images.githubusercontent.com/42680395/93270644-90c5a280-f77f-11ea-9401-50cb45197d56.png)
 
 wasd to control.
 
