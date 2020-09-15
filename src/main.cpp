@@ -58,7 +58,7 @@ class Display {
         base_char = base;
         message = "press h for help.";
 #ifdef _WIN32
-        system(("mode con: cols=" + std::to_string(X_LEN+2) + " lines=" + std::to_string(Y_LEN+5)).c_str());
+        system(("mode con: cols=" + std::to_string(X_LEN+2) + " lines=" + std::to_string(Y_LEN+7)).c_str());
 #endif
         for (int o = 0; o < Y_LEN; o++) for (int i = 0; i < X_LEN; i++) display[o][i] = base;
     }
@@ -70,7 +70,7 @@ class Display {
     void print() {
         system("cls");
         std::string s;
-        s += message + "\n ";
+        s += message + "\n ________________________________\n" + (char)179;
         for (int o = 0; o < Y_LEN; o++) {
             for (int i = 0; i < X_LEN; i++) {
                 switch (display[o][i]) {
@@ -92,8 +92,14 @@ class Display {
                         break;
                 }
             }
-            s += "\n ";
+            s += std::string("") + (char)179 + "\n" + (char)179;
         }
+        s.pop_back();
+        s += (char)192;
+        for (int _ = 0; _ < X_LEN; _++) {
+            s += (char)196;
+        }
+        s += (char)217;
         std::cout << s;
         std::cout.flush();
         changed = false;
