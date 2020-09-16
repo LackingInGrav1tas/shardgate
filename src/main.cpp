@@ -78,7 +78,9 @@ class Display {
                         s +=  "#";
                         break;
                     case BLACK:
-                        s += (char)176;
+                        //if (i % 2) s += (char)176;
+                        //else s += (char)177;
+                        s += " ";
                         break;
                     case PLAYER:
                         std::cout << s;
