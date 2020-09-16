@@ -43,7 +43,7 @@ int randint(int rb, int re) {
 }
 
 enum P_Chars {
-    BLACK, WHITE, PLAYER, TARGET
+    BLACK, WHITE, PLAYER, TARGET, MED_PACK
 };
 
 class Display {
@@ -90,6 +90,14 @@ class Display {
                         s = "";
                         COLOR("0", 6);
                         break;
+                    case MED_PACK:
+                        //s += (char)233;
+                        std::cout << s;
+                        s = "";
+                        s += (char)233;
+                        COLOR(s, 5);
+                        s = "";
+                        break;
                 }
             }
             s += std::string("") + (char)179 + "\n" + (char)179;
@@ -132,7 +140,8 @@ struct Player {
     do { \
         switch (display.get_pixel(player.x, player.y)) { \
             case WHITE: display.message = "Ouch! That hurts!"; player.hp -= 1; break; \
-            case TARGET: score += player.hp; return true; \
+            case TARGET: score += player.hp + pct*10; return true; \
+            case MED_PACK: display.message = "You gain some life."; player.hp += 2; break; \
         } \
     } while (false)
 
@@ -199,7 +208,7 @@ class GameState {
                 break;
             case 'h':
                 clear();
-                std::cout << "Commands:\nw: move up\na: move left\ns: move down\nd: move right\ne: exit" << std::endl;
+                std::cout << "Commands:\nw: move up\na: move left\ns: move down\nd: move right\ne: exit\n\nBoard:\n@: player\n#: obstacle\n0: target\n" << (char)233 << ": health pack" << std::endl;
                 getch();
                 display.status() = true;
                 break;
@@ -237,7 +246,9 @@ int main() {
         game.display.init(BLACK);
         for (int _ = 0; _ < X_LEN*Y_LEN*game.pct; _++) game.display.set_pixel(randint(X_LEN), randint(Y_LEN), WHITE);
         game.display.set_pixel(randint(X_LEN), randint(Y_LEN), TARGET);
+        game.display.set_pixel(randint(X_LEN), randint(Y_LEN), TARGET);
         game.display.save();
+        game.display.set_pixel(randint(X_LEN), randint(Y_LEN), MED_PACK);
         game.display.set_pixel(X_LEN/2, Y_LEN/2, PLAYER);
         game.update();
         while (true) {
